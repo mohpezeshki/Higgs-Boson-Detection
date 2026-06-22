@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data + Models (usually too large for git)
+data/raw/
+data/processed/
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Outputs
+runs/
+logs/
+wandb/
+mlruns/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Caches
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
