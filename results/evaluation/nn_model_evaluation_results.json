@@ -1,0 +1,22 @@
+{
+    "model": "Neural Network",
+    "auc": 0.7417328357901984,
+    "brier_score": 0.2562,
+    "log_loss": 9.234383998291815,
+    "optimal_threshold": 0.001,
+    "ams": 59.36170812290533,
+    "tp": 4142,
+    "fp": 1311,
+    "tn": 3296,
+    "fn": 1251,
+    "accuracy": 0.7438,
+    "precision": 0.759581881533101,
+    "recall": 0.7680326348970888,
+    "sensitivity": 0.7680326348970888,
+    "specificity": 0.715433036683308,
+    "f1_score": 0.7637838834593399,
+    "matthews_corrcoef": 0.48396029503506705,
+    "false_positive_rate": 0.284566963316692,
+    "false_negative_rate": 0.2319673651029112,
+    "total_samples": 10000
+}

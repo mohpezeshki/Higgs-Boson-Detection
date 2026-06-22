@@ -32,5 +32,6 @@ CONFIG = {
     'val_data_dir': '../data/processed/{dataset}/val/',
     'test_data_dir': '../data/processed/{dataset}/test/',
     'checkpoint_dir': '../results/models/',
-    'plot_dir': './results/plots/',
+    'plot_dir': '../results/plots/',
+    'evaluation_dir': '../results/evaluation/'
 }

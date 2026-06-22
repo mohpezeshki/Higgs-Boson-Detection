@@ -16,18 +16,71 @@ Baldi et al. (2014) demonstrated that deep neural networks can outperform tradit
 
 ## Results
 
-Trained on 88,000 samples, validated on 10,000, tested on 10,000 (subsampled from the full 11M dataset):
+Trained on 88,000 samples, validated on 10,000, tested on 10,000 (subsampled from the full 11M dataset).
 
-| Model | ROC AUC | Optimal AMS | Best Threshold |
-|-------|---------|-------------|----------------|
-| Deep NN (5 layers) | 0.7417 | 59.36 | 0.001 |
-| **XGBoost** | **0.8094** | **72.31** | **0.788** |
+### Key Metrics
 
-> **Note:** The neural network was trained on a small subsample. Performance improves significantly with more data — the original paper used the full 11M events, where deep NNs surpass gradient boosting on low-level features.
+| Metric | Neural Network | XGBoost |
+|--------|---------------|---------|
+| **ROC AUC** | 0.7417 | **0.8094** |
+| **AMS** | 59.36 | **72.31** |
+| **Accuracy** | **0.7438** | 0.6201 |
+| **Precision** | 0.7596 | **0.9173** |
+| **Recall** | **0.7680** | 0.3249 |
+| **F1 Score** | **0.7638** | 0.4798 |
+| **Brier Score** | 0.2562 | **0.1781** |
+| **Log Loss** | 9.2344 | **0.5301** |
 
-**Metrics:**
+### Confusion Matrix Breakdown
+
+| | Neural Network | XGBoost |
+|--|---------------|---------|
+| True Positives | 4,142 | 1,752 |
+| False Positives | 1,311 | 158 |
+| True Negatives | 3,296 | 4,449 |
+| False Negatives | 1,251 | 3,641 |
+| Sensitivity | 0.7680 | 0.3249 |
+| Specificity | 0.7154 | 0.9657 |
+| FPR | 0.2846 | 0.0343 |
+| FNR | 0.2320 | 0.6751 |
+
+### Analysis
+
+- **XGBoost wins on discrimination** (AUC 0.81 vs 0.74) and probability calibration (Brier 0.18 vs 0.26)
+- **Neural Network wins on recall** (0.77 vs 0.32) — it catches more actual signal events
+- **XGBoost is highly precise** (0.92) but conservative — it misses 67.5% of real signals (high FNR)
+- The NN provides a more balanced precision/recall trade-off (F1 0.76 vs 0.48)
+
+> **Note:** The neural network was trained on a small subsample (88K). Performance improves significantly with more data — the original paper used the full 11M events, where deep NNs surpass gradient boosting on low-level features.
+
+### Plots
+
+<p align="center">
+  <img src="results/plots/03_metrics_comparison.png" width="80%" alt="Metrics Comparison"/>
+</p>
+<p align="center"><em>Side-by-side metric comparison between Neural Network and XGBoost</em></p>
+
+<p align="center">
+  <img src="results/plots/03_confusion_matrices.png" width="80%" alt="Confusion Matrices"/>
+</p>
+<p align="center"><em>Confusion matrices showing classification behavior differences</em></p>
+
+<p align="center">
+  <img src="results/plots/03_threshold_analysis.png" width="80%" alt="Threshold Analysis"/>
+</p>
+<p align="center"><em>AMS score vs decision threshold — optimal operating points</em></p>
+
+<p align="center">
+  <img src="results/plots/03_error_rates.png" width="80%" alt="Error Rates"/>
+</p>
+<p align="center"><em>Error rate comparison: FPR vs FNR trade-offs</em></p>
+
+### Metric Definitions
+
 - **ROC AUC** — Area under the receiver operating characteristic curve
-- **AMS** — Approximate Median Significance, the physics-standard metric for signal discovery: `sqrt(2 * [s * ln(1 + s/b) - s])` where `s` = true positives, `b` = false positives
+- **AMS** — Approximate Median Significance, the physics-standard metric: `sqrt(2 * [s * ln(1 + s/b) - s])`
+- **Brier Score** — Mean squared error of predicted probabilities (lower is better)
+- **Log Loss** — Cross-entropy loss on predicted probabilities (lower is better)
 
 ---
 
